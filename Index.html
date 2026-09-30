@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lisa's Online Enterprise - Shop quality clothes, shoes and handbags online.">
+  <meta name="keywords" content="clothes, shoes, handbags, fashion, online shop, Lisa's Online Enterprise">
+  <meta name="author" content="Lisa's Online Enterprise">
+  <title>Lisa's Online Enterprise</title>
+  <style>
+    /* =========================================================
+       GLOBAL RESET & TYPOGRAPHY
+    ========================================================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #faf8f5;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* =========================================================
+       HEADER / NAVIGATION
+    ========================================================= */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: #ffffff;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #111;
+      letter-spacing: -0.5px;
+    }
+
+    .logo p {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #b08d16;
+      font-weight: 500;
+    }
+
+    .navbar ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      list-style: none;
+    }
+
+    .navbar a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+      color: #333;
+    }
+
+    .navbar a:hover {
+      border-bottom-color: #d4af37;
+      color: #b08d16;
+    }
+
+    /* =========================================================
+       HERO SECTION
+    ========================================================= */
+    .hero {
+      background: linear-gradient(135deg, #f7f2ea 0%, #efe6d8 100%);
+      padding: 4rem 5%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 70vh;
+    }
+
+    .hero-content {
+      max-width: 750px;
+    }
+
+    .hero h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 1.2rem;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #3d3d3d;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .shop-button {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      padding: 0.9rem 2.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.25s, transform 0.15s;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .shop-button:hover {
+      background: #d4af37;
+      color: #111;
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       WELCOME / INTRO
+    ========================================================= */
+    .welcome {
+      text-align: center;
+      padding: 3.5rem 5%;
+      background: #fff;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .welcome h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    .welcome p {
+      color: #444;
+      font-size: 1.05rem;
+      max-width: 750px;
+      margin: 0.6rem auto;
+    }
+
+    /* =========================================================
+       PRODUCT SECTIONS
+    ========================================================= */
+    .products-section {
+      padding: 3rem 5%;
+      background: #faf8f5;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title p {
+      color: #5a5a5a;
+      font-size: 1.05rem;
+    }
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      height: 240px;
+      background: #f3f0eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.03);
+    }
+
+    .product-info {
+      padding: 1.4rem 1.2rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-info h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #111;
+    }
+
+    .product-info p {
+      color: #5f5f5f;
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-info .price {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #b08d16;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .product-info button {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-top: auto;
+    }
+
+    .product-info button:hover {
+      background: #d4af37;
+      color: #111;
+    }
+
+    /* =========================================================
+       ABOUT SECTION
+    ========================================================= */
+    .about-section {
+      padding: 3rem 5%;
+      background: #fff;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .about-section p {
+      color: #444;
+      font-size: 1.05rem;
+      max-width: 750px;
+      margin: 0.6rem auto;
+    }
+
+    /* =========================================================
+       WHY US
+    ========================================================= */
+    .why-us {
+      padding: 3rem 5%;
+      background: #faf8f5;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature {
+      background: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+    }
+
+    .feature h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: #111;
+    }
+
+    .feature p {
+      color: #5a5a5a;
+      font-size: 0.95rem;
+    }
+
+    /* =========================================================
+       CONTACT
+    ========================================================= */
+    .contact-section {
+      padding: 3rem 5% 4rem;
+      background: #fff;
+      text-align: center;
+    }
+
+    .contact-information {
+      background: #faf8f5;
+      max-width: 550px;
+      margin: 0 auto 2rem;
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: left;
+    }
+
+    .contact-information p {
+      margin: 0.6rem 0;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .contact-information a {
+      color: #b08d16;
+      font-weight: 500;
+      border-bottom: 1px dotted #b08d16;
+    }
+
+    .whatsapp-button {
+      display: inline-block;
+      background: #25d366;
+      color: #fff;
+      padding: 1rem 2.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .whatsapp-button:hover {
+      background: #128c7e;
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    .footer {
+      background: #111;
+      color: #ddd;
+      text-align: center;
+      padding: 2.5rem 5%;
+    }
+
+    .footer-content h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-content p {
+      font-size: 0.95rem;
+      color: #aaa;
+      margin: 0.2rem 0;
+    }
+
+    .footer-content p:first-of-type {
+      color: #d4af37;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    /* =========================================================
+       CART BUTTON & MODAL STYLES
+    ========================================================= */
+    #cart-button {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 2000;
+      background: #d4af37;
+      color: #111;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+      transition: 0.3s;
+    }
+
+    #cart-button:hover {
+      transform: scale(1.05);
+      background: #111;
+      color: white;
+    }
+
+    #cart-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 3000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .cart-content {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      margin: 50px auto;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .cart-header h2 {
+      margin: 0;
+      color: #111;
+    }
+
+    #close-cart {
+      border: none;
+      background: none;
+      font-size: 32px;
+      cursor: pointer;
+      color: #111;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #eee;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-info h4 {
+      margin: 0 0 5px;
+      color: #111;
+    }
+
+    .cart-item-info p {
+      margin: 3px 0;
+      color: #555;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .quantity-controls button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: #111;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .remove-item {
+      background: #b00020 !important;
+    }
+
+    .cart-summary {
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .cart-summary h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    #cart-total {
+      color: #b08d16;
+    }
+
+    #clear-cart,
+    #checkout-whatsapp {
+      border: none;
+      padding: 12px 20px;
+      margin: 5px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #clear-cart {
+      background: #ddd;
+      color: #111;
+    }
+
+    #checkout-whatsapp {
+      background: #25d366;
+      color: white;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 30px 10px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .cart-content {
+        margin: 20px auto;
+        padding: 18px;
+      }
+
+      .cart-item {
+        gap: 10px;
+      }
+
+      .cart-item img {
+        width: 60px;
+        height: 60px;
+      }
+
+      #cart-button {
+        right: 15px;
+        bottom: 15px;
+      }
+    }
+
+    /* =========================================================
+       RESPONSIVE ADJUSTMENTS
+    ========================================================= */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+
+      .navbar ul {
+        justify-content: center;
+        gap: 0.8rem;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .product-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo h1 {
+        font-size: 1.3rem;
+      }
+
+      .navbar a {
+        font-size: 0.85rem;
+      }
+
+      .hero {
+        padding: 3rem 5%;
+        min-height: 60vh;
+      }
+
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.7rem;
+      }
+
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================
+       HEADER / NAVIGATION
+  ========================== -->
+  <header class="header">
+    <div class="logo">
+      <h1>Lisa's Online Enterprise</h1>
+      <p>Fashion • Style • Elegance</p>
+    </div>
+
+    <nav class="navbar">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#clothes">Clothes</a></li>
+        <li><a href="#shoes">Shoes</a></li>
+        <li><a href="#handbags">Handbags</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- =========================
+       HOME / HERO SECTION
+  ========================== -->
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h2>Welcome to Lisa's Online Enterprise</h2>
+        <p>
+          Discover stylish clothes, beautiful shoes and elegant
+          handbags made to complement your unique style.
+        </p>
+        <a href="#clothes" class="shop-button">Shop Now</a>
+      </div>
+    </section>
+
+    <!-- =========================
+         INTRODUCTION
+    ========================== -->
+    <section class="welcome">
+      <h2>Shop With Lisa</h2>
+      <p>
+        Welcome to Lisa's Online Enterprise, your trusted online
+        fashion store. We offer a variety of fashionable clothes,
+        quality shoes and beautiful handbags for different styles
+        and occasions.
+      </p>
+      <p>
+        Browse our products and find something that matches your
+        personality and style.
+      </p>
+    </section>
+
+    <!-- =========================
+         CLOTHES SECTION
+    ========================== -->
+    <section id="clothes" class="products-section">
+      <div class="section-title">
+        <h2>Our Clothes</h2>
+        <p>Explore our collection of fashionable clothes.</p>
+      </div>
+
+      <div class="product-container">
+        <!-- Product 1 - Men T Shirts -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/sGrQKXB4/21a261222352769-Y3Jvc-Cwx-Nz-A1LDEz-Mz-Qs-MTQ3LDA.jpg" alt="Elegant women's dress">
+          </div>
+          <div class="product-info">
+            <h3>Men T Shirts</h3>
+            <p>Stylish and comfortable dress suitable for different occasions.</p>
+            <p class="price">K250</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Product 2 --Fashion Handbags -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/T56LQwyH/images.jpg" alt="Fashionable women's dress">
+          </div>
+          <div class="product-info">
+            <h3>Fashion Handbags</h3>
+            <p>A Men suits designed for a stylish look.</p>
+            <p class="price">K300</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Product 3 -  Men suits -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/MfSMtTcP/images-(1).jpg" alt="Women's fashionable outfit">
+          </div>
+          <div class="product-info">
+            <h3>Men Suits</h3>
+            <p>Comfortable and fashionable outfit for everyday wear.</p>
+            <p class="price">K350</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         SHOES SECTION
+    ========================== -->
+    <section id="shoes" class="products-section">
+      <div class="section-title">
+        <h2>Our Shoes</h2>
+        <p>Step out in style with our beautiful shoe collection.</p>
+      </div>
+
+      <div class="product-container">
+        <!-- Shoe 1 - Elegant Heels -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/QK39StBS/images-(3).jpg" alt="Women's fashionable shoes">
+          </div>
+          <div class="product-info">
+            <h3>Elegant Heels</h3>
+            <p>Beautiful heels perfect for special occasions.</p>
+            <p class="price">K400</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Shoe 2 - Stylish Shoes -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/K32kQzKJ/images-(4).jpg" alt="Women's stylish shoes">
+          </div>
+          <div class="product-info">
+            <h3>Stylish Shoes</h3>
+            <p>Comfortable and stylish shoes for everyday wear.</p>
+            <p class="price">K350</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Shoe 3 - Classic Footwear -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/sGrQKXBT/images-(5).jpg" alt="Women's fashionable footwear">
+          </div>
+          <div class="product-info">
+            <h3>Classic Footwear</h3>
+            <p>A classic design that matches different outfits.</p>
+            <p class="price">K450</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         HANDBAGS SECTION
+    ========================== -->
+    <section id="handbags" class="products-section">
+      <div class="section-title">
+        <h2>Our Handbags</h2>
+        <p>Complete your look with our beautiful handbags.</p>
+      </div>
+
+      <div class="product-container">
+        <!-- Handbag 1 - Elegant Handbag -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/sGrQKXB4/21a261222352769-Y3Jvc-Cwx-Nz-A1LDEz-Mz-Qs-MTQ3LDA.jpg" alt="Elegant women's handbag">
+          </div>
+          <div class="product-info">
+            <h3>Elegant Handbag</h3>
+            <p>A stylish handbag suitable for everyday use.</p>
+            <p class="price">K300</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Handbag 2 - Fashion Handbag -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/T56LQwyH/images.jpg" alt="Fashionable women's handbag">
+          </div>
+          <div class="product-info">
+            <h3>Fashion Handbag</h3>
+            <p>A beautiful accessory for a fashionable look.</p>
+            <p class="price">K350</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Handbag 3 - Classic Handbag -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://i.postimg.cc/MfSMtTcP/images-(1).jpg" alt="Classic women's handbag">
+          </div>
+          <div class="product-info">
+            <h3>Classic Handbag</h3>
+            <p>Elegant design with enough space for your everyday essentials.</p>
+            <p class="price">K400</p>
+            <button type="button">Add to Cart</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         ABOUT US
+    ========================== -->
+    <section id="about" class="about-section">
+      <div class="section-title">
+        <h2>About Lisa's Online Enterprise</h2>
+      </div>
+      <p>
+        Lisa's Online Enterprise is a fashion business focused on
+        providing stylish and quality clothing, shoes and handbags
+        to customers.
+      </p>
+      <p>
+        Our goal is to make fashion shopping simple, convenient and
+        enjoyable while helping our customers look and feel
+        confident.
+      </p>
+    </section>
+
+    <!-- =========================
+         WHY SHOP WITH US
+    ========================== -->
+    <section class="why-us">
+      <div class="section-title">
+        <h2>Why Shop With Us?</h2>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <h3>Quality Products</h3>
+          <p>We offer carefully selected fashion products.</p>
+        </div>
+        <div class="feature">
+          <h3>Affordable Prices</h3>
+          <p>Enjoy stylish products at competitive prices.</p>
+        </div>
+        <div class="feature">
+          <h3>Convenient Shopping</h3>
+          <p>Browse our products online from your phone.</p>
+        </div>
+        <div class="feature">
+          <h3>Customer Service</h3>
+          <p>We value our customers and aim to provide excellent service.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         CONTACT SECTION
+    ========================== -->
+    <section id="contact" class="contact-section">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Interested in one of our products? Get in touch with us.</p>
+      </div>
+
+      <div class="contact-information">
+        <p><strong>Business:</strong> Lisa's Online Enterprise</p>
+        <p><strong>Phone:</strong> <a href="tel:+260973954592">+260 973954592</a></p>
+        <p><strong>Email:</strong> <a href="mailto:lisamwamba2025@gmail.com">lisamwamba2025@gmail.com</a></p>
+        <p><strong>Location:</strong> Zambia</p>
+      </div>
+
+      <a href="https://wa.me/260973954592" class="whatsapp-button" target="_blank" rel="noopener">
+        Order on WhatsApp
+      </a>
+    </section>
+  </main>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <h2>Lisa's Online Enterprise</h2>
+      <p>Fashion • Style • Elegance</p>
+      <p>&copy; 2026 Lisa's Online Enterprise. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- =========================
+       JAVASCRIPT (Cart & interactions)
+  ========================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      /* =====================================================
+         SHOPPING CART
+      ===================================================== */
+      let cart = JSON.parse(localStorage.getItem("lisaCart")) || [];
+
+      /* =====================================================
+         CREATE CART BUTTON
+      ===================================================== */
+      const cartButton = document.createElement("button");
+      cartButton.id = "cart-button";
+      cartButton.innerHTML = "🛒 Cart (<span id='cart-count'>0</span>)";
+      document.body.appendChild(cartButton);
+
+      /* =====================================================
+         CREATE CART WINDOW
+      ===================================================== */
+      const cartModal = document.createElement("div");
+      cartModal.id = "cart-modal";
+      cartModal.innerHTML = `
+        <div class="cart-content">
+          <div class="cart-header">
+            <h2>Your Shopping Cart</h2>
+            <button id="close-cart">×</button>
+          </div>
+          <div id="cart-items"></div>
+          <div class="cart-summary">
+            <h3>Total: <span id="cart-total">K0</span></h3>
+            <button id="clear-cart">Clear Cart</button>
+            <button id="checkout-whatsapp">Order on WhatsApp</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(cartModal);
+
+      /* =====================================================
+         GET PRODUCT BUTTONS
+      ===================================================== */
+      const addToCartButtons = document.querySelectorAll(".product-info button");
+
+      /* =====================================================
+         ADD PRODUCTS TO CART
+      ===================================================== */
+      addToCartButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const productCard = button.closest(".product-card");
+          if (!productCard) return;
+
+          const productName = productCard.querySelector("h3").textContent.trim();
+          const priceText = productCard.querySelector(".price").textContent.trim();
+          const price = parseFloat(priceText.replace("K", "").replace(",", "").trim());
+          const imageElement = productCard.querySelector("img");
+          const image = imageElement ? imageElement.getAttribute("src") : "";
+
+          const existingProduct = cart.find(function (product) {
+            return product.name === productName;
+          });
+
+          if (existingProduct) {
+            existingProduct.quantity++;
+          } else {
+            cart.push({
+              name: productName,
+              price: price,
+              image: image,
+              quantity: 1
+            });
+          }
+
+          saveCart();
+          updateCart();
+          showMessage(productName + " added to your cart!");
+        });
+      });
+
+      /* =====================================================
+         SAVE CART
+      ===================================================== */
+      function saveCart() {
+        localStorage.setItem("lisaCart", JSON.stringify(cart));
+      }
+
+      /* =====================================================
+         UPDATE CART
+      ===================================================== */
+      function updateCart() {
+        const cartItems = document.getElementById("cart-items");
+        const cartCount = document.getElementById("cart-count");
+        const cartTotal = document.getElementById("cart-total");
+
+        let totalItems = 0;
+        cart.forEach(function (product) {
+          totalItems += product.quantity;
+        });
+        cartCount.textContent = totalItems;
+
+        if (cart.length === 0) {
+          cartItems.innerHTML = `
+            <div class="empty-cart">
+              <h3>Your cart is empty</h3>
+              <p>Add some beautiful products to your cart.</p>
+            </div>
+          `;
+          cartTotal.textContent = "K0";
+          return;
+        }
+
+        cartItems.innerHTML = "";
+
+        cart.forEach(function (product, index) {
+          const item = document.createElement("div");
+          item.className = "cart-item";
+          item.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <div class="cart-item-info">
+              <h4>${product.name}</h4>
+              <p>Price: K${product.price}</p>
+              <div class="quantity-controls">
+                <button class="decrease" data-index="${index}">-</button>
+                <strong>${product.quantity}</strong>
+                <button class="increase" data-index="${index}">+</button>
+                <button class="remove-item" data-index="${index}">Remove</button>
+              </div>
+            </div>
+          `;
+          cartItems.appendChild(item);
+        });
+
+        const total = calculateTotal();
+        cartTotal.textContent = "K" + total.toFixed(2);
+        addCartButtonEvents();
+      }
+
+      /* =====================================================
+         CALCULATE TOTAL
+      ===================================================== */
+      function calculateTotal() {
+        let total = 0;
+        cart.forEach(function (product) {
+          total += product.price * product.quantity;
+        });
+        return total;
+      }
+
+      /* =====================================================
+         QUANTITY BUTTONS
+      ===================================================== */
+      function addCartButtonEvents() {
+        const increaseButtons = document.querySelectorAll(".increase");
+        const decreaseButtons = document.querySelectorAll(".decrease");
+        const removeButtons = document.querySelectorAll(".remove-item");
+
+        increaseButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            const index = parseInt(button.getAttribute("data-index"));
+            cart[index].quantity++;
+            saveCart();
+            updateCart();
+          });
+        });
+
+        decreaseButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            const index = parseInt(button.getAttribute("data-index"));
+            if (cart[index].quantity > 1) {
+              cart[index].quantity--;
+            } else {
+              cart.splice(index, 1);
+            }
+            saveCart();
+            updateCart();
+          });
+        });
+
+        removeButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            const index = parseInt(button.getAttribute("data-index"));
+            cart.splice(index, 1);
+            saveCart();
+            updateCart();
+          });
+        });
+      }
+
+      /* =====================================================
+         OPEN CART
+      ===================================================== */
+      cartButton.addEventListener("click", function () {
+        cartModal.style.display = "block";
+        updateCart();
+      });
+
+      /* =====================================================
+         CLOSE CART
+      ===================================================== */
+      document.getElementById("close-cart").addEventListener("click", function () {
+        cartModal.style.display = "none";
+      });
+
+      /* =====================================================
+         CLOSE CART WHEN CLICKING OUTSIDE
+      ===================================================== */
+      cartModal.addEventListener("click", function (event) {
+        if (event.target === cartModal) {
+          cartModal.style.display = "none";
+        }
+      });
+
+      /* =====================================================
+         CLEAR CART
+      ===================================================== */
+      document.getElementById("clear-cart").addEventListener("click", function () {
+        if (cart.length === 0) return;
+        const confirmClear = confirm("Are you sure you want to clear your cart?");
+        if (confirmClear) {
+          cart = [];
+          saveCart();
+          updateCart();
+        }
+      });
+
+      /* =====================================================
+         WHATSAPP CHECKOUT
+      ===================================================== */
+      document.getElementById("checkout-whatsapp").addEventListener("click", function () {
+        if (cart.length === 0) {
+          alert("Your cart is empty. Please add products first.");
+          return;
+        }
+
+        let message = "Hello Lisa's Online Enterprise!%0A%0A";
+        message += "I would like to order:%0A%0A";
+
+        cart.forEach(function (product) {
+          message += "• " + product.name + " x" + product.quantity + " - K" +
+            (product.price * product.quantity).toFixed(2) + "%0A";
+        });
+
+        message += "%0A";
+        message += "Total: K" + calculateTotal().toFixed(2);
+
+        const whatsappNumber = "260973954592";
+        const whatsappURL = "https://wa.me/" + whatsappNumber + "?text=" + message;
+        window.open(whatsappURL, "_blank");
+      });
+
+      /* =====================================================
+         SIMPLE MESSAGE
+      ===================================================== */
+      function showMessage(message) {
+        const notification = document.createElement("div");
+        notification.textContent = message;
+        notification.style.position = "fixed";
+        notification.style.top = "20px";
+        notification.style.right = "20px";
+        notification.style.zIndex = "5000";
+        notification.style.background = "#111";
+        notification.style.color = "white";
+        notification.style.padding = "15px 20px";
+        notification.style.borderRadius = "8px";
+        notification.style.boxShadow = "0 5px 20px rgba(0,0,0,0.25)";
+        notification.style.fontWeight = "500";
+        document.body.appendChild(notification);
+
+        setTimeout(function () {
+          notification.remove();
+        }, 2500);
+      }
+
+      /* =====================================================
+         INITIAL CART LOAD
+      ===================================================== */
+      updateCart();
+
+      /* =====================================================
+         SMOOTH NAVIGATION
+      ===================================================== */
+      const navigationLinks = document.querySelectorAll('.navbar a[href^="#"]');
+      navigationLinks.forEach(function (link) {
+        link.addEventListener("click", function (event) {
+          const targetID = link.getAttribute("href");
+          const target = document.querySelector(targetID);
+          if (target) {
+            event.preventDefault();
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
