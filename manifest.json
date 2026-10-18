@@ -1,0 +1,25 @@
+{
+  "name": "Lisa's Online Enterprise",
+  "short_name": "Lisa's",
+  "description": "Fashion marketplace — clothes, shoes, handbags",
+  "start_url": "./Index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf8f5",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/sGrQKXB4/21a261222352769-Y3Jvc-Cwx-Nz-A1LDEz-Mz-Qs-MTQ3LDA.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.postimg.cc/sGrQKXB4/21a261222352769-Y3Jvc-Cwx-Nz-A1LDEz-Mz-Qs-MTQ3LDA.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
