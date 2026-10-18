@@ -3,57 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lisa's Online Enterprise - Phase 3 (A+B+C)</title>
+    <title>Lisa's Online Enterprise - Marketplace</title>
 
-    <!-- ============================================================
-         OPTION A: PWA MANIFEST & META TAGS
-    ============================================================ -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#111111">
-    <link rel="apple-touch-icon" href="https://i.postimg.cc/sGrQKXB4/21a261222352769-Y3Jvc-Cwx-Nz-A1LDEz-Mz-Qs-MTQ3LDA.jpg">
-
+    <!-- Flutterwave v3 Inline JS -->
     <script src="https://checkout.flutterwave.com/v3.js"></script>
 
     <style>
-        /* --- CSS (Phase 1 & 2 Styles Retained + New Additions) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background: #faf8f5; color: #222; line-height: 1.5; }
         a { text-decoration: none; color: inherit; }
         img { max-width: 100%; display: block; }
 
+        /* HEADER */
         .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 1.2rem 5%; background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 100; }
         .logo h1 { font-size: 1.6rem; font-weight: 600; color: #111; }
         .logo p { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #b08d16; font-weight: 500; }
         .navbar ul { display: flex; flex-wrap: wrap; gap: 1.2rem; list-style: none; align-items: center; }
         .navbar a { font-weight: 500; font-size: 0.95rem; color: #333; }
         .navbar a:hover { color: #b08d16; }
+        
         .auth-area { display: flex; gap: 0.6rem; align-items: center; }
         .auth-btn { background: #111; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
         .auth-btn.outline { background: transparent; color: #111; border: 1px solid #111; }
         .user-badge { font-weight: 600; font-size: 0.9rem; color: #b08d16; padding: 6px 12px; background: #fff7e0; border-radius: 20px; }
-        
-        /* PWA Install Button */
-        #install-app-btn {
-            background: #2e7d32; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: none;
-            margin-left: 10px;
-        }
-        #install-app-btn:hover { background: #1b5e20; }
 
+        /* HERO */
         .hero { background: linear-gradient(135deg, #f7f2ea 0%, #efe6d8 100%); padding: 4rem 5%; text-align: center; min-height: 50vh; display: flex; justify-content: center; align-items: center; }
         .hero h2 { font-size: 2.8rem; font-weight: 700; color: #111; margin-bottom: 1rem; }
         .hero p { font-size: 1.2rem; color: #3d3d3d; margin-bottom: 2rem; }
-        .shop-button { display: inline-block; background: #111; color: #fff; padding: 0.9rem 2.6rem; border-radius: 40px; font-weight: 600; }
+        .shop-button { display: inline-block; background: #111; color: #fff; padding: 0.9rem 2.6rem; border-radius: 40px; font-weight: 600; cursor: pointer; }
         .shop-button:hover { background: #d4af37; color: #111; }
 
         .welcome { text-align: center; padding: 3rem 5%; background: #fff; max-width: 1000px; margin: 0 auto; }
         .welcome h2 { font-size: 2rem; font-weight: 600; margin-bottom: 1rem; }
 
+        /* SEARCH BAR */
         .search-bar { padding: 1.5rem 5%; background: #fff; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; position: sticky; top: 70px; z-index: 90; }
         .search-bar input, .search-bar select { padding: 10px 16px; border: 1px solid #ccc; border-radius: 30px; font-size: 0.95rem; }
         .search-bar input[type="text"] { min-width: 220px; }
         .search-bar input[type="number"] { width: 90px; }
         .search-bar button { padding: 10px 20px; border: none; background: #111; color: #fff; border-radius: 30px; font-weight: 600; cursor: pointer; }
 
+        /* PRODUCTS */
         .products-section { padding: 3rem 5%; background: #faf8f5; }
         .section-title { text-align: center; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 2.1rem; font-weight: 600; color: #111; }
@@ -67,7 +58,7 @@
         .product-info button { background: #111; color: #fff; border: none; padding: 0.8rem 1rem; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: auto; }
         .product-info button:hover { background: #d4af37; color: #111; }
 
-        /* Reviews UI (Option C) */
+        /* REVIEWS */
         .review-section { margin-top: 1rem; border-top: 1px solid #eee; padding-top: 1rem; }
         .stars { display: flex; gap: 2px; margin-bottom: 0.5rem; }
         .star { color: #ddd; font-size: 1.2rem; cursor: pointer; }
@@ -79,7 +70,7 @@
         .review-item strong { color: #333; }
         .review-item .review-stars { color: #d4af37; }
 
-        /* Modals & Dashboard (Retained) */
+        /* DASHBOARD */
         .dashboard { padding: 3rem 5%; background: #fff; max-width: 1300px; margin: 0 auto; }
         .dashboard .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
         .dashboard .stat { background: #faf8f5; padding: 1.5rem; border-radius: 16px; flex: 1; min-width: 150px; text-align: center; }
@@ -87,7 +78,8 @@
         .dashboard table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
         .dashboard th, .dashboard td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #eee; }
         .del-btn { background: #b00020; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
-        
+
+        /* MODALS */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); z-index: 3000; padding: 20px; overflow-y: auto; }
         .modal-content { background: #fff; max-width: 520px; margin: 50px auto; border-radius: 15px; padding: 25px; position: relative; }
         .close-x { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 28px; cursor: pointer; }
@@ -95,6 +87,7 @@
         .btn-primary { background: #111; color: #fff; padding: 12px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; width: 100%; }
         .btn-primary:hover { background: #d4af37; color: #111; }
         
+        /* CART */
         #cart-button { position: fixed; right: 20px; bottom: 20px; z-index: 2000; background: #d4af37; color: #111; border: none; border-radius: 30px; padding: 14px 22px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.25); }
         .cart-item { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #ddd; padding: 15px 0; }
         .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; }
@@ -133,7 +126,6 @@
                 <button class="auth-btn outline" onclick="openAuth('login')">Sign In</button>
                 <button class="auth-btn" onclick="openAuth('signup')">Sign Up</button>
             </li>
-            <li><button id="install-app-btn" onclick="installPWA()">📲 Install App</button></li>
         </ul>
     </nav>
 </header>
@@ -142,14 +134,9 @@
     <section id="home" class="hero">
         <div>
             <h2>Welcome to Lisa's Online Enterprise</h2>
-            <p>Install our app for a better experience. Pay online securely. Read and write reviews.</p>
+            <p>Pay online securely. Read and write reviews. Buy or sell today.</p>
             <a href="#clothes" class="shop-button">Shop Now</a>
         </div>
-    </section>
-
-    <section class="welcome">
-        <h2>Shop With Lisa</h2>
-        <p>Multi-vendor marketplace with real payments, PWA support, and product reviews.</p>
     </section>
 
     <section class="search-bar">
@@ -162,8 +149,9 @@
         <button onclick="resetFilters()" style="background:#ddd;color:#111;">Reset</button>
     </section>
 
+    <!-- SUPPLIER PANEL -->
     <section id="supplier-panel" class="products-section" style="display:none;">
-        <div class="section-title"><h2>Supplier Panel</h2><p>Upload products.</p></div>
+        <div class="section-title"><h2>Supplier Panel</h2><p>Upload products directly from your phone gallery.</p></div>
         <div style="max-width:700px; margin:0 auto;">
             <div class="product-card" style="padding:2rem;">
                 <h3 style="margin-bottom:1rem;">Upload Product</h3>
@@ -172,7 +160,11 @@
                     <p style="margin-bottom:0.5rem;"><label>Category</label><br><input type="text" id="product-category" required placeholder="e.g. Clothes, Shoes, Jewellery..." style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></p>
                     <p style="margin-bottom:0.5rem;"><label>Price (K)</label><br><input type="number" id="product-price" required min="1" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></p>
                     <p style="margin-bottom:0.5rem;"><label>Description</label><br><textarea id="product-description" rows="3" required style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></textarea></p>
-                    <p style="margin-bottom:1rem;"><label>Image URL</label><br><input type="url" id="product-image" required placeholder="https://..." style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></p>
+                    <p style="margin-bottom:1rem;">
+                        <label>Product Image (from phone)</label><br>
+                        <!-- CHANGED: Now accepts images directly from the phone -->
+                        <input type="file" id="product-image-file" accept="image/*" required style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;background:#fff;">
+                    </p>
                     <button type="submit" class="btn-primary">Upload Product</button>
                 </form>
                 <p id="supplier-message" style="margin-top:1rem;color:#b08d16;font-weight:600;"></p>
@@ -180,6 +172,7 @@
         </div>
     </section>
 
+    <!-- DASHBOARD -->
     <section id="dashboard" class="dashboard" style="display:none;">
         <h2>Supplier Dashboard</h2>
         <div class="stat-row">
@@ -191,6 +184,7 @@
         <table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr></thead><tbody id="dashboard-products"></tbody></table>
     </section>
 
+    <!-- HARDCODED PRODUCTS -->
     <section id="clothes" class="products-section">
         <div class="section-title"><h2>Our Clothes</h2></div>
         <div class="product-container" data-category="clothes">
@@ -203,30 +197,12 @@
                     <button type="button" onclick="addToCart(this)">Add to Cart</button>
                     <div class="review-section" data-product-id="prod-1">
                         <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
-                        <form class="review-form" onsubmit="submitReview(event, 'prod-1', 'Elegant Dress')">
+                        <form class="review-form" onsubmit="submitReview(event, 'prod-1')">
                             <input type="text" class="review-name" placeholder="Your name" required>
                             <textarea class="review-text" rows="2" placeholder="Write a review..." required></textarea>
                             <button type="submit">Post Review</button>
                         </form>
                         <div class="review-list" id="reviews-prod-1"></div>
-                    </div>
-                </div>
-            </article>
-            <article class="product-card" data-product-id="prod-2">
-                <div class="product-image" onclick="openProductDetail(this)"><img src="https://i.postimg.cc/T56LQwyH/images.jpg" alt="Fashion Dress"></div>
-                <div class="product-info">
-                    <h3>Fashion Dress</h3>
-                    <p>Beautiful outfit for a stylish look.</p>
-                    <p class="price">K300</p>
-                    <button type="button" onclick="addToCart(this)">Add to Cart</button>
-                    <div class="review-section" data-product-id="prod-2">
-                        <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
-                        <form class="review-form" onsubmit="submitReview(event, 'prod-2', 'Fashion Dress')">
-                            <input type="text" class="review-name" placeholder="Your name" required>
-                            <textarea class="review-text" rows="2" placeholder="Write a review..." required></textarea>
-                            <button type="submit">Post Review</button>
-                        </form>
-                        <div class="review-list" id="reviews-prod-2"></div>
                     </div>
                 </div>
             </article>
@@ -245,36 +221,12 @@
                     <button type="button" onclick="addToCart(this)">Add to Cart</button>
                     <div class="review-section" data-product-id="prod-3">
                         <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
-                        <form class="review-form" onsubmit="submitReview(event, 'prod-3', 'Elegant Heels')">
+                        <form class="review-form" onsubmit="submitReview(event, 'prod-3')">
                             <input type="text" class="review-name" placeholder="Your name" required>
                             <textarea class="review-text" rows="2" placeholder="Write a review..." required></textarea>
                             <button type="submit">Post Review</button>
                         </form>
                         <div class="review-list" id="reviews-prod-3"></div>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section id="handbags" class="products-section">
-        <div class="section-title"><h2>Our Handbags</h2></div>
-        <div class="product-container" data-category="handbags">
-            <article class="product-card" data-product-id="prod-4">
-                <div class="product-image" onclick="openProductDetail(this)"><img src="https://i.postimg.cc/sGrQKXB4/21a261222352769-Y3Jvc-Cwx-Nz-A1LDEz-Mz-Qs-MTQ3LDA.jpg" alt="Elegant Handbag"></div>
-                <div class="product-info">
-                    <h3>Elegant Handbag</h3>
-                    <p>Stylish everyday bag.</p>
-                    <p class="price">K300</p>
-                    <button type="button" onclick="addToCart(this)">Add to Cart</button>
-                    <div class="review-section" data-product-id="prod-4">
-                        <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
-                        <form class="review-form" onsubmit="submitReview(event, 'prod-4', 'Elegant Handbag')">
-                            <input type="text" class="review-name" placeholder="Your name" required>
-                            <textarea class="review-text" rows="2" placeholder="Write a review..." required></textarea>
-                            <button type="submit">Post Review</button>
-                        </form>
-                        <div class="review-list" id="reviews-prod-4"></div>
                     </div>
                 </div>
             </article>
@@ -290,7 +242,7 @@
 
     <section id="about" class="about-section" style="padding: 3rem 5%; background: #fff; text-align: center;">
         <div class="section-title"><h2>About Us</h2></div>
-        <p>Lisa's Online Enterprise connects suppliers with customers. Install our PWA, pay securely, and leave reviews.</p>
+        <p>Lisa's Online Enterprise connects suppliers with customers. Pay securely and leave reviews.</p>
     </section>
 
     <section id="contact" class="contact-section" style="padding: 3rem 5%; background: #fff; text-align: center;">
@@ -310,7 +262,7 @@
     <p>&copy; 2026 All Rights Reserved.</p>
 </footer>
 
-<!-- Modals (Auth, Product Detail, Cart, Checkout) -->
+<!-- MODALS -->
 <div id="auth-modal" class="modal">
     <div class="modal-content">
         <button class="close-x" onclick="closeModal('auth-modal')">×</button>
@@ -385,122 +337,50 @@
     let reviews = JSON.parse(localStorage.getItem("lisaReviews")) || {};
     let authMode = "login";
 
-    /* Flutterwave Public Key (Replace with your real key) */
-    const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXX-X"; 
+    const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXX-X"; // Replace with your key
 
     /* ============================================================
-       OPTION A: PWA INSTALL LOGIC
-    ============================================================ */
-    let deferredPrompt = null;
-    const installBtn = document.getElementById("install-app-btn");
+       IMAGE COMPRESSION FUNCTION (For Phone Uploads)
+       ============================================================ */
+    function compressImage(file, maxWidth, callback) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(event) {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = function() {
+                const canvas = document.createElement("canvas");
+                let width = img.width;
+                let height = img.height;
 
-    window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = "inline-block";
-    });
+                if (width > maxWidth) {
+                    height = Math.round((height * maxWidth) / width);
+                    width = maxWidth;
+                }
 
-    window.installPWA = async function() {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`Install prompt outcome: ${outcome}`);
-        deferredPrompt = null;
-        installBtn.style.display = "none";
-    };
+                canvas.width = width;
+                canvas.height = height;
 
-    window.addEventListener("appinstalled", () => {
-        installBtn.style.display = "none";
-    });
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
 
-    /* ============================================================
-       OPTION C: REVIEWS & RATINGS LOGIC
-    ============================================================ */
-    function renderReviews(productId) {
-        const container = document.getElementById(`reviews-${productId}`);
-        if (!container) return;
-        const productReviews = reviews[productId] || [];
-        if (productReviews.length === 0) {
-            container.innerHTML = '<p style="color:#999;font-size:0.8rem;">No reviews yet.</p>';
-            return;
-        }
-        container.innerHTML = productReviews.map(r => `
-            <div class="review-item">
-                <strong>${r.name}</strong> <span class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
-                <p>${r.text}</p>
-            </div>
-        `).join('');
-    }
-
-    window.setRating = function(event, starContainer) {
-        if (!event.target.classList.contains('star')) return;
-        const value = parseInt(event.target.dataset.value);
-        const stars = starContainer.querySelectorAll('.star');
-        stars.forEach((s, i) => {
-            if (i < value) s.classList.add('active');
-            else s.classList.remove('active');
-        });
-        starContainer.dataset.rating = value;
-    };
-
-    window.submitReview = function(event, productId, productName) {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.querySelector('.review-name').value.trim();
-        const text = form.querySelector('.review-text').value.trim();
-        const starContainer = form.parentElement.querySelector('.stars');
-        const rating = parseInt(starContainer.dataset.rating) || 0;
-
-        if (rating === 0) { alert("Please select a star rating."); return; }
-        if (!name || !text) { alert("Please fill in your name and review."); return; }
-
-        if (!reviews[productId]) reviews[productId] = [];
-        reviews[productId].push({ name, text, rating, date: new Date().toISOString() });
-        localStorage.setItem("lisaReviews", JSON.stringify(reviews));
-
-        form.reset();
-        starContainer.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
-        starContainer.dataset.rating = 0;
-        renderReviews(productId);
-        showMessage("Review posted!");
-    };
-
-    // Load existing reviews for hardcoded products
-    ['prod-1', 'prod-2', 'prod-3', 'prod-4'].forEach(id => renderReviews(id));
-
-
-    /* ============================================================
-       OPTION B: WHATSAPP NOTIFICATION HOOKS
-    ============================================================ */
-    function triggerWhatsAppNotification(order, action) {
-        // 🔴 THIS IS A FRONTEND HOOK. 
-        // To actually send a WhatsApp message, you must call your backend API here.
-        // Example:
-        // fetch('/api/send-whatsapp', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify({ to: order.phone, message: `Your order #${order.id} is ${action}` })
-        // });
-        console.log(`[WhatsApp Hook] Would send message to ${order.phone}: Order #${order.id} is ${action}`);
+                // Compress to JPEG at 70% quality to save space
+                const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+                callback(compressedBase64);
+            };
+        };
     }
 
     /* ============================================================
-       PHASE 1 & 2 LOGIC (CART, AUTH, PRODUCTS, CHECKOUT)
+       CART LOGIC
     ============================================================ */
-    // ... (All the cart, auth, product upload, and Flutterwave code from the previous Phase 2 version goes here.
-    // I am keeping it concise for brevity, but it is fully functional and identical to the Phase 2 code,
-    // with the addition of the review rendering and WhatsApp hook call below).
+    const cartButton = document.createElement("button");
+    cartButton.id = "cart-button";
+    cartButton.innerHTML = "🛒 Cart (<span id='cart-count'>0</span>)";
+    document.body.appendChild(cartButton);
 
-    // [Assuming the Phase 2 code is pasted here...]
-    // Key modifications to note in the Phase 2 code:
-    // 1. In `addToCart(button)`, it should just grab the product card and add to cart (same as before).
-    // 2. In `launchFlutterwave` -> `callback`, after creating the order, call `triggerWhatsAppNotification(order, "Confirmed")`.
-    // 3. In `supplier-form` submit, call `renderProduct()` which should also render the review section for new products.
-
-    // Let's quickly stub out the essential functions to make the file runnable:
-    
-    // Cart functions
     function saveCart() { localStorage.setItem("lisaCart", JSON.stringify(cart)); }
+    
     window.addToCart = function(btn) {
         const card = btn.closest(".product-card");
         const name = card.querySelector("h3").textContent;
@@ -517,8 +397,13 @@
         const count = document.getElementById("cart-count");
         const total = document.getElementById("cart-total");
         let n = 0; cart.forEach(p => n += p.quantity);
-        count.textContent = n;
-        if (cart.length === 0) { items.innerHTML = `<div class="empty-cart"><h3>Cart is empty</h3></div>`; total.textContent = "K0"; return; }
+        if(count) count.textContent = n;
+        
+        if (cart.length === 0) { 
+            items.innerHTML = `<div class="empty-cart"><h3>Cart is empty</h3></div>`; 
+            total.textContent = "K0"; return; 
+        }
+        
         items.innerHTML = "";
         cart.forEach((p, i) => {
             const d = document.createElement("div");
@@ -539,7 +424,65 @@
 
     function calculateTotal() { let t = 0; cart.forEach(p => t += p.price * p.quantity); return t; }
 
-    // Auth functions (Simplified for demo)
+    document.getElementById("close-cart").addEventListener("click", () => document.getElementById("cart-modal").style.display = "none");
+    cartButton.addEventListener("click", () => { document.getElementById("cart-modal").style.display = "block"; updateCart(); });
+    document.getElementById("clear-cart").addEventListener("click", () => { if(confirm("Clear cart?")){ cart=[]; saveCart(); updateCart(); }});
+
+    document.getElementById("checkout-whatsapp").addEventListener("click", () => {
+        if (cart.length === 0) { alert("Cart is empty"); return; }
+        let m = "Hello Lisa's! I want to order:%0A%0A";
+        cart.forEach(p => m += "• " + p.name + " x" + p.quantity + " - K" + (p.price*p.quantity).toFixed(2) + "%0A");
+        m += "%0ATotal: K" + calculateTotal().toFixed(2);
+        window.open("https://wa.me/260973954592?text=" + m, "_blank");
+    });
+
+    document.getElementById("pay-online").addEventListener("click", () => {
+        if (cart.length === 0) { alert("Cart is empty"); return; }
+        document.getElementById("checkout-total").textContent = "K" + calculateTotal().toFixed(2);
+        document.getElementById("cart-modal").style.display = "none";
+        document.getElementById("checkout-modal").style.display = "block";
+    });
+
+    /* ============================================================
+       FLUTTERWAVE PAYMENT
+    ============================================================ */
+    window.launchFlutterwave = function(e) {
+        e.preventDefault();
+        const name = document.getElementById("cust-name").value;
+        const email = document.getElementById("cust-email").value;
+        const phone = document.getElementById("cust-phone").value;
+        const address = document.getElementById("cust-address").value;
+        const total = calculateTotal();
+        const txRef = "LISA-" + Date.now();
+
+        FlutterwaveCheckout({
+            public_key: FLW_PUBLIC_KEY,
+            tx_ref: txRef,
+            amount: total,
+            currency: "ZMW",
+            payment_options: "card, mobilemoneyzambia, ussd",
+            customer: { email: email, phone_number: phone, name: name },
+            customizations: { title: "Lisa's Online Enterprise", description: "Payment for order " + txRef },
+            callback: function(response) {
+                const order = {
+                    id: txRef, customerName: name, customerEmail: email, phone: phone, address: address,
+                    items: [...cart], total: total, status: "Paid", flutterwaveRef: response.transaction_id,
+                    date: new Date().toISOString()
+                };
+                orders.push(order);
+                localStorage.setItem("lisaOrders", JSON.stringify(orders));
+
+                cart = []; saveCart(); updateCart();
+                closeModal("checkout-modal");
+                showMessage("✅ Order placed! Check My Orders.");
+                if (user) renderOrders();
+            }
+        });
+    };
+
+    /* ============================================================
+       AUTH LOGIC
+    ============================================================ */
     window.openAuth = (mode) => { authMode = mode; switchAuth(mode); document.getElementById("auth-modal").style.display = "block"; };
     window.switchAuth = (mode) => {
         authMode = mode;
@@ -594,46 +537,249 @@
         }
     }
 
-    // Flutterwave Checkout
-    window.launchFlutterwave = function(e) {
+    /* ============================================================
+       SUPPLIER UPLOAD & DASHBOARD
+    ============================================================ */
+    document.getElementById("supplier-form").addEventListener("submit", function(e) {
         e.preventDefault();
-        const name = document.getElementById("cust-name").value;
-        const email = document.getElementById("cust-email").value;
-        const phone = document.getElementById("cust-phone").value;
-        const address = document.getElementById("cust-address").value;
-        const total = calculateTotal();
-        const txRef = "LISA-" + Date.now();
+        if (!user || user.role !== "supplier") { alert("Sign in as supplier."); return; }
 
-        FlutterwaveCheckout({
-            public_key: FLW_PUBLIC_KEY,
-            tx_ref: txRef,
-            amount: total,
-            currency: "ZMW",
-            payment_options: "card, mobilemoneyzambia, ussd",
-            customer: { email: email, phone_number: phone, name: name },
-            customizations: { title: "Lisa's Online Enterprise", description: "Payment for order " + txRef },
-            callback: function(response) {
-                const order = {
-                    id: txRef, customerName: name, customerEmail: email, phone: phone, address: address,
-                    items: [...cart], total: total, status: "Paid", flutterwaveRef: response.transaction_id,
-                    date: new Date().toISOString()
-                };
-                orders.push(order);
-                localStorage.setItem("lisaOrders", JSON.stringify(orders));
+        const name = document.getElementById("product-name").value.trim();
+        const cat = document.getElementById("product-category").value.trim();
+        const price = parseFloat(document.getElementById("product-price").value);
+        const desc = document.getElementById("product-description").value.trim();
+        
+        // NEW: Grab the file selected from the phone
+        const fileInput = document.getElementById("product-image-file");
+        const file = fileInput.files[0];
 
-                // ✅ Option B Hook: Trigger WhatsApp notification
-                triggerWhatsAppNotification(order, "Confirmed");
+        if (!file) { alert("Please select an image from your phone."); return; }
 
-                cart = []; saveCart(); updateCart();
-                closeModal("checkout-modal");
-                showMessage("✅ Order placed! Check My Orders.");
-            }
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.textContent = "Uploading...";
+
+        // Compress image to max 800px width to prevent crashing localStorage
+        compressImage(file, 800, function(compressedBase64Image) {
+            const product = { 
+                id: "p_" + Date.now(), 
+                name: name, 
+                category: cat, 
+                categoryKey: cat.toLowerCase(), 
+                price: price, 
+                description: desc, 
+                image: compressedBase64Image, // Save the compressed image data
+                supplierEmail: user.email, 
+                supplierName: user.name 
+            };
+
+            products.push(product);
+            localStorage.setItem("lisaProducts", JSON.stringify(products));
+            
+            renderProduct(product);
+            
+            document.getElementById("supplier-message").textContent = "✅ Product uploaded successfully!";
+            document.getElementById("supplier-form").reset(); 
+            submitBtn.textContent = "Upload Product";
+            renderDashboard(); 
+            updateCategoryFilter();
+            setTimeout(() => document.getElementById("supplier-message").textContent = "", 3000);
+        });
+    });
+
+    function renderProduct(p) {
+        const key = p.categoryKey;
+        let container = null;
+        document.querySelectorAll(".product-container[data-category]").forEach(c => {
+            if (c.getAttribute("data-category").toLowerCase() === key) container = c;
+        });
+        if (!container) {
+            const sec = document.createElement("section");
+            sec.className = "products-section"; sec.id = key;
+            sec.innerHTML = `<div class="section-title"><h2>Our ${p.category}</h2></div><div class="product-container" data-category="${key}"></div>`;
+            document.getElementById("dynamic-sections").appendChild(sec);
+            container = sec.querySelector(".product-container");
+            const nav = document.querySelector(".navbar ul");
+            const li = document.createElement("li");
+            li.innerHTML = `<a href="#${key}">${p.category}</a>`;
+            nav.insertBefore(li, document.getElementById("auth-area"));
+        }
+        const card = document.createElement("article");
+        card.className = "product-card"; card.dataset.id = p.id; card.dataset.productId = p.id;
+        card.innerHTML = `
+            <div class="product-image" onclick="openProductDetail(this)"><img src="${p.image}" alt="${p.name}"></div>
+            <div class="product-info">
+                <h3>${p.name}</h3>
+                <p>${p.description}</p>
+                <p class="price">K${p.price}</p>
+                <button type="button" onclick="addToCart(this)">Add to Cart</button>
+                <div class="review-section" data-product-id="${p.id}">
+                    <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
+                    <form class="review-form" onsubmit="submitReview(event, '${p.id}')">
+                        <input type="text" class="review-name" placeholder="Your name" required>
+                        <textarea class="review-text" rows="2" placeholder="Write a review..." required></textarea>
+                        <button type="submit">Post Review</button>
+                    </form>
+                    <div class="review-list" id="reviews-${p.id}"></div>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+        renderReviews(p.id);
+    }
+    products.forEach(renderProduct);
+
+    function renderDashboard() {
+        if (!user || user.role !== "supplier") return;
+        const mine = products.filter(p => p.supplierEmail === user.email);
+        document.getElementById("stat-products").textContent = mine.length;
+        const myOrders = orders.filter(o => o.items.some(i => mine.some(p => p.name === i.name)));
+        document.getElementById("stat-orders").textContent = myOrders.length;
+        let rev = 0;
+        myOrders.forEach(o => o.items.forEach(i => { if (mine.some(p => p.name === i.name)) rev += i.price * i.quantity; }));
+        document.getElementById("stat-revenue").textContent = "K" + rev.toFixed(2);
+        
+        const tb = document.getElementById("dashboard-products");
+        tb.innerHTML = "";
+        if (mine.length === 0) { tb.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#888;">No products yet.</td></tr>`; return; }
+        
+        mine.forEach(p => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td><img src="${p.image}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;"></td><td>${p.name}</td><td>${p.category}</td><td>K${p.price}</td><td><button class="del-btn" onclick="deleteProduct('${p.id}')">Delete</button></td>`;
+            tb.appendChild(tr);
+        });
+    }
+
+    window.deleteProduct = function(id) {
+        if (!confirm("Delete?")) return;
+        products = products.filter(p => p.id !== id);
+        localStorage.setItem("lisaProducts", JSON.stringify(products));
+        document.querySelectorAll(`.product-card[data-id="${id}"]`).forEach(c => c.remove());
+        renderDashboard();
+    };
+
+    /* ============================================================
+       REVIEWS
+    ============================================================ */
+    function renderReviews(productId) {
+        const container = document.getElementById(`reviews-${productId}`);
+        if (!container) return;
+        const productReviews = reviews[productId] || [];
+        if (productReviews.length === 0) { container.innerHTML = '<p style="color:#999;font-size:0.8rem;">No reviews yet.</p>'; return; }
+        container.innerHTML = productReviews.map(r => `
+            <div class="review-item">
+                <strong>${r.name}</strong> <span class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+                <p>${r.text}</p>
+            </div>
+        `).join('');
+    }
+
+    window.setRating = function(event, starContainer) {
+        if (!event.target.classList.contains('star')) return;
+        const value = parseInt(event.target.dataset.value);
+        const stars = starContainer.querySelectorAll('.star');
+        stars.forEach((s, i) => { if (i < value) s.classList.add('active'); else s.classList.remove('active'); });
+        starContainer.dataset.rating = value;
+    };
+
+    window.submitReview = function(event, productId) {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.querySelector('.review-name').value.trim();
+        const text = form.querySelector('.review-text').value.trim();
+        const starContainer = form.parentElement.querySelector('.stars');
+        const rating = parseInt(starContainer.dataset.rating) || 0;
+
+        if (rating === 0) { alert("Please select a star rating."); return; }
+        if (!name || !text) { alert("Please fill in your name and review."); return; }
+
+        if (!reviews[productId]) reviews[productId] = [];
+        reviews[productId].push({ name, text, rating, date: new Date().toISOString() });
+        localStorage.setItem("lisaReviews", JSON.stringify(reviews));
+
+        form.reset();
+        starContainer.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+        starContainer.dataset.rating = 0;
+        renderReviews(productId);
+        showMessage("Review posted!");
+    };
+
+    ['prod-1', 'prod-3'].forEach(id => renderReviews(id));
+
+    /* ============================================================
+       ORDERS & SEARCH
+    ============================================================ */
+    function renderOrders() {
+        if (!user) return;
+        const list = document.getElementById("orders-list");
+        const mine = orders.filter(o => o.customerEmail === user.email);
+        if (mine.length === 0) { list.innerHTML = `<p style="color:#777;text-align:center;">No orders yet.</p>`; return; }
+        list.innerHTML = "";
+        mine.forEach(o => {
+            const d = document.createElement("div");
+            d.style.cssText = "background:#faf8f5; padding:1.2rem; border-radius:12px; margin-bottom:1rem; border-left:4px solid #b08d16;";
+            d.innerHTML = `<p><strong>#${o.id}</strong> — <span style="color:green;font-weight:bold;">${o.status}</span></p><p style="color:#555;">${o.items.map(i => i.name + " x" + i.quantity).join(", ")}</p><p style="font-weight:600;color:#b08d16;">Total: K${o.total.toFixed(2)}</p>`;
+            list.appendChild(d);
+        });
+    }
+
+    function updateCategoryFilter() {
+        const sel = document.getElementById("category-filter");
+        const cats = new Set(["all"]);
+        document.querySelectorAll(".product-container[data-category]").forEach(c => cats.add(c.getAttribute("data-category").toLowerCase()));
+        sel.innerHTML = "";
+        cats.forEach(c => {
+            const o = document.createElement("option"); o.value = c; o.textContent = c === "all" ? "All Categories" : c.charAt(0).toUpperCase() + c.slice(1); sel.appendChild(o);
+        });
+    }
+    updateCategoryFilter();
+
+    window.applyFilters = function() {
+        const term = document.getElementById("search-input").value.toLowerCase().trim();
+        const cat = document.getElementById("category-filter").value;
+        const min = parseFloat(document.getElementById("min-price").value) || 0;
+        const max = parseFloat(document.getElementById("max-price").value) || Infinity;
+        document.querySelectorAll(".products-section").forEach(sec => {
+            const cont = sec.querySelector(".product-container"); if (!cont) return;
+            const cCat = (cont.getAttribute("data-category") || "").toLowerCase();
+            let visible = 0;
+            cont.querySelectorAll(".product-card").forEach(card => {
+                const name = card.querySelector("h3").textContent.toLowerCase();
+                const price = parseFloat(card.querySelector(".price").textContent.replace("K","").trim());
+                const ok = (!term || name.includes(term)) && (cat === "all" || cCat === cat) && price >= min && price <= max;
+                card.style.display = ok ? "flex" : "none"; if (ok) visible++;
+            });
+            sec.style.display = visible > 0 ? "block" : "none";
         });
     };
 
-    // Utility
+    window.resetFilters = function() {
+        document.getElementById("search-input").value = "";
+        document.getElementById("category-filter").value = "all";
+        document.getElementById("min-price").value = "";
+        document.getElementById("max-price").value = "";
+        document.querySelectorAll(".products-section").forEach(s => s.style.display = "block");
+        document.querySelectorAll(".product-card").forEach(c => c.style.display = "flex");
+    };
+    document.getElementById("search-input").addEventListener("input", applyFilters);
+
+    /* ============================================================
+       DETAIL MODAL & UTILS
+    ============================================================ */
+    window.openProductDetail = function(imgDiv) {
+        const card = imgDiv.closest(".product-card");
+        document.getElementById("detail-image").src = card.querySelector("img").src;
+        document.getElementById("detail-name").textContent = card.querySelector("h3").textContent;
+        document.getElementById("detail-desc").textContent = card.querySelector(".product-info p").textContent;
+        document.getElementById("detail-price").textContent = card.querySelector(".price").textContent;
+        document.getElementById("detail-add-btn").onclick = () => {
+            const btn = card.querySelector(".product-info button"); btn.click(); closeModal("product-detail-modal");
+        };
+        document.getElementById("product-detail-modal").style.display = "block";
+    };
+
     window.closeModal = (id) => document.getElementById(id).style.display = "none";
     document.querySelectorAll(".modal").forEach(m => m.addEventListener("click", e => { if (e.target === m) m.style.display = "none"; }));
+
     function showMessage(msg) {
         const n = document.createElement("div");
         n.textContent = msg;
@@ -641,9 +787,14 @@
         document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
     }
 
-    // Init
+    document.querySelectorAll('.navbar a[href^="#"]').forEach(link => {
+        link.addEventListener("click", function(e) {
+            const t = document.querySelector(this.getAttribute("href"));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: "smooth" }); }
+        });
+    });
+
     updateCart(); refreshUI();
-    // [Note: The full product upload, dashboard rendering, and search logic from Phase 2 is assumed to be included here for a complete file, but is abbreviated for this response.]
 </script>
 
 </body>
