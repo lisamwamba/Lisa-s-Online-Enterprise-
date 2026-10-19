@@ -31,7 +31,7 @@
         .hero { background: linear-gradient(135deg, #f7f2ea 0%, #efe6d8 100%); padding: 4rem 5%; text-align: center; min-height: 50vh; display: flex; justify-content: center; align-items: center; }
         .hero h2 { font-size: 2.8rem; font-weight: 700; color: #111; margin-bottom: 1rem; }
         .hero p { font-size: 1.2rem; color: #3d3d3d; margin-bottom: 2rem; }
-        .shop-button { display: inline-block; background: #111; color: #fff; padding: 0.9rem 2.6rem; border-radius: 40px; font-weight: 600; cursor: pointer; }
+        .shop-button { display: inline-block; background: #111; color: #fff; padding: 0.9rem 2.6rem; border-radius: 40px; font-weight: 600; cursor: pointer; border: none; }
         .shop-button:hover { background: #d4af37; color: #111; }
 
         .welcome { text-align: center; padding: 3rem 5%; background: #fff; max-width: 1000px; margin: 0 auto; }
@@ -55,8 +55,12 @@
         .product-info { padding: 1.4rem 1.2rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
         .product-info h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
         .product-info .price { font-size: 1.35rem; font-weight: 700; color: #b08d16; margin: 0.5rem 0 1rem; }
-        .product-info button { background: #111; color: #fff; border: none; padding: 0.8rem 1rem; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: auto; }
+        .product-info button { background: #111; color: #fff; border: none; padding: 0.8rem 1rem; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: auto; margin-bottom: 0.5rem; transition: 0.2s; }
         .product-info button:hover { background: #d4af37; color: #111; }
+        
+        /* NEW: Supplier Chat Button */
+        .supplier-chat-btn { background: #25d366 !important; color: #fff !important; margin-top: 0 !important; }
+        .supplier-chat-btn:hover { background: #128c7e !important; color: #fff !important; }
 
         /* REVIEWS */
         .review-section { margin-top: 1rem; border-top: 1px solid #eee; padding-top: 1rem; }
@@ -134,7 +138,7 @@
     <section id="home" class="hero">
         <div>
             <h2>Welcome to Lisa's Online Enterprise</h2>
-            <p>Pay online securely. Read and write reviews. Buy or sell today.</p>
+            <p>Pay online securely. Chat directly with suppliers. Buy or sell today.</p>
             <a href="#clothes" class="shop-button">Shop Now</a>
         </div>
     </section>
@@ -151,7 +155,7 @@
 
     <!-- SUPPLIER PANEL -->
     <section id="supplier-panel" class="products-section" style="display:none;">
-        <div class="section-title"><h2>Supplier Panel</h2><p>Upload products directly from your phone gallery.</p></div>
+        <div class="section-title"><h2>Supplier Panel</h2><p>Upload products and include your WhatsApp number for direct customer chat.</p></div>
         <div style="max-width:700px; margin:0 auto;">
             <div class="product-card" style="padding:2rem;">
                 <h3 style="margin-bottom:1rem;">Upload Product</h3>
@@ -160,9 +164,15 @@
                     <p style="margin-bottom:0.5rem;"><label>Category</label><br><input type="text" id="product-category" required placeholder="e.g. Clothes, Shoes, Jewellery..." style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></p>
                     <p style="margin-bottom:0.5rem;"><label>Price (K)</label><br><input type="number" id="product-price" required min="1" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></p>
                     <p style="margin-bottom:0.5rem;"><label>Description</label><br><textarea id="product-description" rows="3" required style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></textarea></p>
+                    
+                    <!-- NEW: WhatsApp Number Input -->
+                    <p style="margin-bottom:0.5rem;">
+                        <label>Your WhatsApp Number (for customers to chat)</label><br>
+                        <input type="tel" id="product-whatsapp" required placeholder="e.g. 260973954592 (include country code, no + or spaces)" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;">
+                    </p>
+
                     <p style="margin-bottom:1rem;">
                         <label>Product Image (from phone)</label><br>
-                        <!-- CHANGED: Now accepts images directly from the phone -->
                         <input type="file" id="product-image-file" accept="image/*" required style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;background:#fff;">
                     </p>
                     <button type="submit" class="btn-primary">Upload Product</button>
@@ -195,6 +205,9 @@
                     <p>Stylish and comfortable dress.</p>
                     <p class="price">K250</p>
                     <button type="button" onclick="addToCart(this)">Add to Cart</button>
+                    <!-- Direct chat to admin phone for demo -->
+                    <button type="button" class="supplier-chat-btn" onclick="chatWithSupplier('260973954592', 'Elegant Dress')">💬 Chat with Supplier</button>
+                    
                     <div class="review-section" data-product-id="prod-1">
                         <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
                         <form class="review-form" onsubmit="submitReview(event, 'prod-1')">
@@ -219,6 +232,9 @@
                     <p>Perfect for special occasions.</p>
                     <p class="price">K400</p>
                     <button type="button" onclick="addToCart(this)">Add to Cart</button>
+                    <!-- Direct chat to admin phone for demo -->
+                    <button type="button" class="supplier-chat-btn" onclick="chatWithSupplier('260973954592', 'Elegant Heels')">💬 Chat with Supplier</button>
+
                     <div class="review-section" data-product-id="prod-3">
                         <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
                         <form class="review-form" onsubmit="submitReview(event, 'prod-3')">
@@ -242,7 +258,7 @@
 
     <section id="about" class="about-section" style="padding: 3rem 5%; background: #fff; text-align: center;">
         <div class="section-title"><h2>About Us</h2></div>
-        <p>Lisa's Online Enterprise connects suppliers with customers. Pay securely and leave reviews.</p>
+        <p>Lisa's Online Enterprise connects suppliers with customers. Pay securely, chat directly, and leave reviews.</p>
     </section>
 
     <section id="contact" class="contact-section" style="padding: 3rem 5%; background: #fff; text-align: center;">
@@ -252,7 +268,6 @@
             <p><strong>Email:</strong> <a href="mailto:lisamwamba2025@gmail.com">lisamwamba2025@gmail.com</a></p>
             <p><strong>Location:</strong> Zambia</p>
         </div>
-        <a href="https://wa.me/260973954592" class="shop-button" target="_blank" style="background:#25d366;">Order on WhatsApp</a>
     </section>
 </main>
 
@@ -289,7 +304,8 @@
         <h2 id="detail-name"></h2>
         <p id="detail-desc" style="color:#555;margin:0.5rem 0;"></p>
         <p id="detail-price" style="font-size:1.5rem;font-weight:700;color:#b08d16;margin:1rem 0;"></p>
-        <button class="btn-primary" id="detail-add-btn">Add to Cart</button>
+        <button class="btn-primary" id="detail-add-btn" style="margin-bottom:0.5rem;">Add to Cart</button>
+        <button class="btn-primary supplier-chat-btn" id="detail-chat-btn">💬 Chat with Supplier</button>
     </div>
 </div>
 
@@ -340,8 +356,24 @@
     const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXX-X"; // Replace with your key
 
     /* ============================================================
-       IMAGE COMPRESSION FUNCTION (For Phone Uploads)
-       ============================================================ */
+       NEW: CHAT WITH SUPPLIER FUNCTION
+    ============================================================ */
+    window.chatWithSupplier = function(phone, productName) {
+        // Clean phone number (remove spaces, +, etc.)
+        let cleanPhone = phone.toString().replace(/\D/g, '');
+        
+        // If the user forgot the country code (e.g., entered 097..., change to 26097...)
+        if (cleanPhone.startsWith('0')) {
+            cleanPhone = '260' + cleanPhone.substring(1);
+        }
+
+        const message = encodeURIComponent(`Hello, I am interested in buying the "${productName}" from Lisa's Online Enterprise. Is it available?`);
+        window.open(`https://wa.me/${cleanPhone}?text=${message}`, '_blank');
+    };
+
+    /* ============================================================
+       IMAGE COMPRESSION FUNCTION
+    ============================================================ */
     function compressImage(file, maxWidth, callback) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -364,7 +396,6 @@
                 const ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0, width, height);
 
-                // Compress to JPEG at 70% quality to save space
                 const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
                 callback(compressedBase64);
             };
@@ -549,7 +580,9 @@
         const price = parseFloat(document.getElementById("product-price").value);
         const desc = document.getElementById("product-description").value.trim();
         
-        // NEW: Grab the file selected from the phone
+        // NEW: Grab the WhatsApp number
+        const whatsapp = document.getElementById("product-whatsapp").value.trim();
+
         const fileInput = document.getElementById("product-image-file");
         const file = fileInput.files[0];
 
@@ -558,7 +591,6 @@
         const submitBtn = this.querySelector('button[type="submit"]');
         submitBtn.textContent = "Uploading...";
 
-        // Compress image to max 800px width to prevent crashing localStorage
         compressImage(file, 800, function(compressedBase64Image) {
             const product = { 
                 id: "p_" + Date.now(), 
@@ -567,7 +599,8 @@
                 categoryKey: cat.toLowerCase(), 
                 price: price, 
                 description: desc, 
-                image: compressedBase64Image, // Save the compressed image data
+                image: compressedBase64Image,
+                whatsapp: whatsapp, // SAVE WHATSAPP NUMBER
                 supplierEmail: user.email, 
                 supplierName: user.name 
             };
@@ -605,6 +638,10 @@
         }
         const card = document.createElement("article");
         card.className = "product-card"; card.dataset.id = p.id; card.dataset.productId = p.id;
+        
+        // Only add the chat button if the product has a WhatsApp number saved
+        const chatBtnHtml = p.whatsapp ? `<button type="button" class="supplier-chat-btn" onclick="chatWithSupplier('${p.whatsapp}', '${p.name}')">💬 Chat with Supplier</button>` : '';
+
         card.innerHTML = `
             <div class="product-image" onclick="openProductDetail(this)"><img src="${p.image}" alt="${p.name}"></div>
             <div class="product-info">
@@ -612,6 +649,8 @@
                 <p>${p.description}</p>
                 <p class="price">K${p.price}</p>
                 <button type="button" onclick="addToCart(this)">Add to Cart</button>
+                ${chatBtnHtml}
+                
                 <div class="review-section" data-product-id="${p.id}">
                     <div class="stars" onclick="setRating(event, this)"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div>
                     <form class="review-form" onsubmit="submitReview(event, '${p.id}')">
@@ -771,9 +810,25 @@
         document.getElementById("detail-name").textContent = card.querySelector("h3").textContent;
         document.getElementById("detail-desc").textContent = card.querySelector(".product-info p").textContent;
         document.getElementById("detail-price").textContent = card.querySelector(".price").textContent;
+        
         document.getElementById("detail-add-btn").onclick = () => {
             const btn = card.querySelector(".product-info button"); btn.click(); closeModal("product-detail-modal");
         };
+
+        // Setup Chat button in the Modal
+        const detailChatBtn = document.getElementById("detail-chat-btn");
+        const chatBtnInCard = card.querySelector(".supplier-chat-btn");
+        
+        if (chatBtnInCard) {
+            detailChatBtn.style.display = "block";
+            detailChatBtn.onclick = () => {
+                chatBtnInCard.click();
+                closeModal("product-detail-modal");
+            };
+        } else {
+            detailChatBtn.style.display = "none";
+        }
+
         document.getElementById("product-detail-modal").style.display = "block";
     };
 
