@@ -155,7 +155,7 @@
 
     <!-- SUPPLIER PANEL -->
     <section id="supplier-panel" class="products-section" style="display:none;">
-        <div class="section-title"><h2>Supplier Panel</h2><p>Upload products and include your WhatsApp number for direct customer chat.</p></div>
+        <div class="section-title"><h2>Supplier Panel</h2><p>Upload products and include your WhatsApp number.</p></div>
         <div style="max-width:700px; margin:0 auto;">
             <div class="product-card" style="padding:2rem;">
                 <h3 style="margin-bottom:1rem;">Upload Product</h3>
@@ -165,10 +165,9 @@
                     <p style="margin-bottom:0.5rem;"><label>Price (K)</label><br><input type="number" id="product-price" required min="1" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></p>
                     <p style="margin-bottom:0.5rem;"><label>Description</label><br><textarea id="product-description" rows="3" required style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;"></textarea></p>
                     
-                    <!-- NEW: WhatsApp Number Input -->
                     <p style="margin-bottom:0.5rem;">
-                        <label>Your WhatsApp Number (for customers to chat)</label><br>
-                        <input type="tel" id="product-whatsapp" required placeholder="e.g. 260973954592 (include country code, no + or spaces)" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;">
+                        <label>Your WhatsApp Number</label><br>
+                        <input type="tel" id="product-whatsapp" required placeholder="e.g. 260973954592" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;">
                     </p>
 
                     <p style="margin-bottom:1rem;">
@@ -205,7 +204,6 @@
                     <p>Stylish and comfortable dress.</p>
                     <p class="price">K250</p>
                     <button type="button" onclick="addToCart(this)">Add to Cart</button>
-                    <!-- Direct chat to admin phone for demo -->
                     <button type="button" class="supplier-chat-btn" onclick="chatWithSupplier('260973954592', 'Elegant Dress')">💬 Chat with Supplier</button>
                     
                     <div class="review-section" data-product-id="prod-1">
@@ -232,7 +230,6 @@
                     <p>Perfect for special occasions.</p>
                     <p class="price">K400</p>
                     <button type="button" onclick="addToCart(this)">Add to Cart</button>
-                    <!-- Direct chat to admin phone for demo -->
                     <button type="button" class="supplier-chat-btn" onclick="chatWithSupplier('260973954592', 'Elegant Heels')">💬 Chat with Supplier</button>
 
                     <div class="review-section" data-product-id="prod-3">
@@ -344,29 +341,73 @@
 
 <script>
     /* ============================================================
+       ⚠️ CRITICAL: JSONBIN CLOUD DATABASE SETUP
+       Replace the values below with your own from jsonbin.io
+    ============================================================ */
+    const JSONBIN_ID = "https://api.jsonbin.io/v3/b/6ad7deebac6210605a43a6b8";
+    const JSONBIN_KEY = "$2a$10$pTKN4haSLsTLmji0yoTF/OnxVEQbYFZ4tJPSfkPHiW4SPBnSn0lb6";
+    const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+
+    /* ============================================================
        STATE & INITIALIZATION
     ============================================================ */
     let cart = JSON.parse(localStorage.getItem("lisaCart")) || [];
-    let products = JSON.parse(localStorage.getItem("lisaProducts")) || [];
-    let orders = JSON.parse(localStorage.getItem("lisaOrders")) || [];
+    let products = []; // Loaded from Cloud
+    let orders = [];   // Loaded from Cloud
+    let reviews = JSON.parse(localStorage.getItem("lisaReviews")) || {}; // Kept local for speed, but can be synced later
     let user = JSON.parse(localStorage.getItem("lisaUser")) || null;
-    let reviews = JSON.parse(localStorage.getItem("lisaReviews")) || {};
     let authMode = "login";
 
-    const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXX-X"; // Replace with your key
+    const FLW_PUBLIC_KEY = "FLWPUBK_TEST-XXXXXXXXXXXXX-X"; // Replace with your real Flutterwave key
+
+    // Load data from JSONBin when the page starts
+    async function loadCloudData() {
+        if(JSONBIN_ID === "YOUR_BIN_ID_HERE") {
+            console.warn("Please set your JSONBIN_ID and JSONBIN_KEY in the code.");
+            return;
+        }
+        try {
+            const res = await fetch(JSONBIN_URL + "/latest", {
+                headers: { "X-Master-Key": JSONBIN_KEY }
+            });
+            const data = await res.json();
+            if (data.record) {
+                products = data.record.products || [];
+                orders = data.record.orders || [];
+                // Render products on load
+                products.forEach(renderProduct);
+                updateCategoryFilter();
+                if (user && user.role === "supplier") renderDashboard();
+                if (user && user.role === "customer") renderOrders();
+            }
+        } catch (err) {
+            console.error("Failed to load cloud data:", err);
+        }
+    }
+
+    // Save data to JSONBin
+    async function saveCloudData() {
+        if(JSONBIN_ID === "YOUR_BIN_ID_HERE") return;
+        try {
+            await fetch(JSONBIN_URL, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Master-Key": JSONBIN_KEY
+                },
+                body: JSON.stringify({ products, orders })
+            });
+        } catch (err) {
+            console.error("Failed to save cloud data:", err);
+        }
+    }
 
     /* ============================================================
-       NEW: CHAT WITH SUPPLIER FUNCTION
+       CHAT WITH SUPPLIER FUNCTION
     ============================================================ */
     window.chatWithSupplier = function(phone, productName) {
-        // Clean phone number (remove spaces, +, etc.)
         let cleanPhone = phone.toString().replace(/\D/g, '');
-        
-        // If the user forgot the country code (e.g., entered 097..., change to 26097...)
-        if (cleanPhone.startsWith('0')) {
-            cleanPhone = '260' + cleanPhone.substring(1);
-        }
-
+        if (cleanPhone.startsWith('0')) cleanPhone = '260' + cleanPhone.substring(1);
         const message = encodeURIComponent(`Hello, I am interested in buying the "${productName}" from Lisa's Online Enterprise. Is it available?`);
         window.open(`https://wa.me/${cleanPhone}?text=${message}`, '_blank');
     };
@@ -384,19 +425,15 @@
                 const canvas = document.createElement("canvas");
                 let width = img.width;
                 let height = img.height;
-
                 if (width > maxWidth) {
                     height = Math.round((height * maxWidth) / width);
                     width = maxWidth;
                 }
-
                 canvas.width = width;
                 canvas.height = height;
-
                 const ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0, width, height);
-
-                const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+                const compressedBase64 = canvas.toDataURL("image/jpeg", 0.6); // 60% quality to save cloud space
                 callback(compressedBase64);
             };
         };
@@ -452,7 +489,6 @@
     };
 
     window.removeItem = function(i) { cart.splice(i, 1); saveCart(); updateCart(); };
-
     function calculateTotal() { let t = 0; cart.forEach(p => t += p.price * p.quantity); return t; }
 
     document.getElementById("close-cart").addEventListener("click", () => document.getElementById("cart-modal").style.display = "none");
@@ -494,14 +530,16 @@
             payment_options: "card, mobilemoneyzambia, ussd",
             customer: { email: email, phone_number: phone, name: name },
             customizations: { title: "Lisa's Online Enterprise", description: "Payment for order " + txRef },
-            callback: function(response) {
+            callback: async function(response) {
                 const order = {
                     id: txRef, customerName: name, customerEmail: email, phone: phone, address: address,
                     items: [...cart], total: total, status: "Paid", flutterwaveRef: response.transaction_id,
                     date: new Date().toISOString()
                 };
                 orders.push(order);
-                localStorage.setItem("lisaOrders", JSON.stringify(orders));
+                
+                // Save to Cloud
+                await saveCloudData();
 
                 cart = []; saveCart(); updateCart();
                 closeModal("checkout-modal");
@@ -558,6 +596,7 @@
             document.getElementById("supplier-panel").style.display = user.role === "supplier" ? "block" : "none";
             document.getElementById("dashboard").style.display = user.role === "supplier" ? "block" : "none";
             if (user.role === "supplier") renderDashboard();
+            if (user.role === "customer") renderOrders();
         } else {
             area.innerHTML = `<button class="auth-btn outline" onclick="openAuth('login')">Sign In</button><button class="auth-btn" onclick="openAuth('signup')">Sign Up</button>`;
             document.getElementById("nav-supplier-link").style.display = "none";
@@ -571,7 +610,7 @@
     /* ============================================================
        SUPPLIER UPLOAD & DASHBOARD
     ============================================================ */
-    document.getElementById("supplier-form").addEventListener("submit", function(e) {
+    document.getElementById("supplier-form").addEventListener("submit", async function(e) {
         e.preventDefault();
         if (!user || user.role !== "supplier") { alert("Sign in as supplier."); return; }
 
@@ -579,8 +618,6 @@
         const cat = document.getElementById("product-category").value.trim();
         const price = parseFloat(document.getElementById("product-price").value);
         const desc = document.getElementById("product-description").value.trim();
-        
-        // NEW: Grab the WhatsApp number
         const whatsapp = document.getElementById("product-whatsapp").value.trim();
 
         const fileInput = document.getElementById("product-image-file");
@@ -589,9 +626,10 @@
         if (!file) { alert("Please select an image from your phone."); return; }
 
         const submitBtn = this.querySelector('button[type="submit"]');
-        submitBtn.textContent = "Uploading...";
+        submitBtn.textContent = "Uploading to Cloud...";
+        submitBtn.disabled = true;
 
-        compressImage(file, 800, function(compressedBase64Image) {
+        compressImage(file, 800, async function(compressedBase64Image) {
             const product = { 
                 id: "p_" + Date.now(), 
                 name: name, 
@@ -600,19 +638,22 @@
                 price: price, 
                 description: desc, 
                 image: compressedBase64Image,
-                whatsapp: whatsapp, // SAVE WHATSAPP NUMBER
+                whatsapp: whatsapp,
                 supplierEmail: user.email, 
                 supplierName: user.name 
             };
 
             products.push(product);
-            localStorage.setItem("lisaProducts", JSON.stringify(products));
+            
+            // Save to JSONBin
+            await saveCloudData();
             
             renderProduct(product);
             
-            document.getElementById("supplier-message").textContent = "✅ Product uploaded successfully!";
+            document.getElementById("supplier-message").textContent = "✅ Product uploaded to Cloud successfully!";
             document.getElementById("supplier-form").reset(); 
             submitBtn.textContent = "Upload Product";
+            submitBtn.disabled = false;
             renderDashboard(); 
             updateCategoryFilter();
             setTimeout(() => document.getElementById("supplier-message").textContent = "", 3000);
@@ -639,7 +680,6 @@
         const card = document.createElement("article");
         card.className = "product-card"; card.dataset.id = p.id; card.dataset.productId = p.id;
         
-        // Only add the chat button if the product has a WhatsApp number saved
         const chatBtnHtml = p.whatsapp ? `<button type="button" class="supplier-chat-btn" onclick="chatWithSupplier('${p.whatsapp}', '${p.name}')">💬 Chat with Supplier</button>` : '';
 
         card.innerHTML = `
@@ -665,7 +705,6 @@
         container.appendChild(card);
         renderReviews(p.id);
     }
-    products.forEach(renderProduct);
 
     function renderDashboard() {
         if (!user || user.role !== "supplier") return;
@@ -688,10 +727,10 @@
         });
     }
 
-    window.deleteProduct = function(id) {
-        if (!confirm("Delete?")) return;
+    window.deleteProduct = async function(id) {
+        if (!confirm("Delete this product from the cloud?")) return;
         products = products.filter(p => p.id !== id);
-        localStorage.setItem("lisaProducts", JSON.stringify(products));
+        await saveCloudData();
         document.querySelectorAll(`.product-card[data-id="${id}"]`).forEach(c => c.remove());
         renderDashboard();
     };
@@ -770,7 +809,6 @@
             const o = document.createElement("option"); o.value = c; o.textContent = c === "all" ? "All Categories" : c.charAt(0).toUpperCase() + c.slice(1); sel.appendChild(o);
         });
     }
-    updateCategoryFilter();
 
     window.applyFilters = function() {
         const term = document.getElementById("search-input").value.toLowerCase().trim();
@@ -815,7 +853,6 @@
             const btn = card.querySelector(".product-info button"); btn.click(); closeModal("product-detail-modal");
         };
 
-        // Setup Chat button in the Modal
         const detailChatBtn = document.getElementById("detail-chat-btn");
         const chatBtnInCard = card.querySelector(".supplier-chat-btn");
         
@@ -849,7 +886,13 @@
         });
     });
 
-    updateCart(); refreshUI();
+    /* ============================================================
+       INIT - LOAD FROM CLOUD
+    ============================================================ */
+    updateCart(); 
+    refreshUI();
+    loadCloudData(); // This fetches products from JSONBin when the page loads
+
 </script>
 
 </body>
